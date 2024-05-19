@@ -1,0 +1,104 @@
+format: ChoreonoidBody
+format_version: 2.0
+angle_unit: degree
+name: sample_robot
+root_link: base_link
+
+links:
+  -
+    name: base_link
+    center_of_mass: [0.0, 0.0, 0.0]
+    mass: 0.5
+    inertia: [0.0020833333, 0.0, 0.0, 0.0070833333, 0.0, 0.0083333333]
+    material: Slider
+    elements:
+      -
+        type: Shape
+        translation: [ 0.0, 0.0, 0.0 ]
+        geometry:
+          type: Box
+          size: [ 0.5, 0.5, 0.25 ]
+  -
+    name: left_wheel_link
+    parent: base_link
+    joint_type: revolute
+    joint_id: 0
+    joint_axis: [0, 1, 0]
+    translation: [0.100, 0.130, -0.05]
+    center_of_mass: [0.0, 0.0, 0.0]
+    mass: 0.5
+    inertia: [0.0013541667, 0.0, 0.0, 0.0013541667, 0.0, 0.0025]
+    material: Tire
+    elements:
+      - &TireShape
+        type: Shape
+        geometry:
+          type: Cylinder
+          height: 0.05
+          radius: 0.1
+          division_number: 60
+        appearance:
+          material:
+            diffuseColor: [ 0.2, 0.2, 0.2 ]
+  -
+    name: right_wheel_link
+    parent: base_link
+    joint_type: revolute
+    joint_id: 1
+    joint_axis: [0, 1, 0]
+    translation: [0.100, -0.130, -0.05]
+    center_of_mass: [0.0, 0.0, 0.0]
+    mass: 0.5
+    inertia: [0.0013541667, 0.0, 0.0, 0.0013541667, 0.0, 0.0025]
+    material: Tire
+    elements:
+      - *TireShape
+  -
+    name: caster_link
+    parent: base_link
+    joint_type: fixed
+    center_of_mass: [0.0, 0.0, 0.0]
+    mass: 0.5
+    inertia: [0.0025, 0.0, 0.0, 0.00025, 0.0, 0.0025]
+    material: Slider
+    elements:
+      -
+        type: Shape
+        translation: [-0.150, 0.0, -0.10]
+        geometry:
+          type: Sphere
+          radius: 0.05
+  -
+    name: hokuyo_link
+    parent: base_link
+    joint_type: fixed
+    center_of_mass: [0.0, 0.0, 0.0]
+    mass: 1e-5
+    inertia: [1e-6, 0.0, 0.0, 1e-6, 0.0, 1e-6]
+    elements:
+      -
+        type: Shape
+        translation: [ 0.1, 0.0, 0.15 ]
+        geometry:
+          type: Box
+          size: [0.1, 0.1, 0.1]
+
+      -
+        type: Transform
+        translation: [ 0.1, 0.0, 0.15 ]
+        elements:
+          -
+            type: RangeSensor
+            name: hokuyo_link
+            optical_frame: robotics
+            scanAngle: 180.0
+            scanStep: 0.25
+            scanRate:  40
+            maxDistance: 30.0
+            minDistance: 0.1
+            detection_rate: 0.9
+            error_deviation: 0.01
+            #distanceResolution: 0.01
+            #noiseType: gaussian
+            #noiseMean: 0.0
+            #noiseStddev: 0.01
