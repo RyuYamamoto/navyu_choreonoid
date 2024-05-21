@@ -25,7 +25,7 @@ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 If there was no willow garage model, download it manually.
 ```bash
-mkdir ~/.gazebo/models && cd ~/.gazebo/models # If there is no directory
+mkdir -p ~/.gazebo/models && cd ~/.gazebo/models # If there is no directory
 wget http://models.gazebosim.org/willowgarage/model.tar.gz
 tar -zxvf model.tar.gz
 ```
