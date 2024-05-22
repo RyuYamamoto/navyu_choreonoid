@@ -7,6 +7,7 @@ root_link: base_link
 links:
   -
     name: base_link
+    joint_type: free
     center_of_mass: [0.0, 0.0, 0.0]
     mass: 0.5
     inertia: [0.0020833333, 0.0, 0.0, 0.0070833333, 0.0, 0.0083333333]
@@ -19,7 +20,7 @@ links:
           type: Box
           size: [ 0.5, 0.5, 0.25 ]
   -
-    name: left_wheel_link
+    name: left_wheel_joint
     parent: base_link
     joint_type: revolute
     joint_id: 0
@@ -41,7 +42,7 @@ links:
           material:
             diffuseColor: [ 0.2, 0.2, 0.2 ]
   -
-    name: right_wheel_link
+    name: right_wheel_joint
     parent: base_link
     joint_type: revolute
     joint_id: 1
