@@ -44,6 +44,7 @@ def generate_launch_description():
         package="robot_state_publisher",
         executable="robot_state_publisher",
         output="screen",
+        remappings=[("/joint_states", "/sample_robot/joint_states")],
         parameters=[{"robot_description": robot_description}, {"use_sim_time": use_sim_time}],
     ),
 

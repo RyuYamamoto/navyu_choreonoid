@@ -52,8 +52,6 @@ public:
       left_wheel_joint_ = node["config"]["left_wheel_joint"].as<std::string>();
       right_wheel_joint_ =
           node["config"]["right_wheel_joint"].as<std::string>();
-      left_wheel_link_ = node["config"]["left_wheel_link"].as<std::string>();
-      right_wheel_link_ = node["config"]["right_wheel_link"].as<std::string>();
       wheel_radius_ = node["config"]["wheel_radius"].as<double>();
       wheel_width_ = node["config"]["wheel_width"].as<double>();
     } catch (const YAML::TypedBadConversion<std::string> &e) {
@@ -69,8 +67,8 @@ public:
     dt_ = io->timeStep();
 
     // get motor name from yaml
-    wheels_[0] = body->joint(left_wheel_link_);
-    wheels_[1] = body->joint(right_wheel_link_);
+    wheels_[0] = body->joint(left_wheel_joint_);
+    wheels_[1] = body->joint(right_wheel_joint_);
     for (int i = 0; i < 2; ++i) {
       auto wheel = wheels_[i];
       wheel->setActuationMode(JointVelocity);
@@ -187,9 +185,7 @@ private:
   double dt_;
   std::string base_frame_;
   std::string odom_frame_;
-  std::string left_wheel_link_;
   std::string left_wheel_joint_;
-  std::string right_wheel_link_;
   std::string right_wheel_joint_;
   double wheel_radius_;
   double wheel_width_;

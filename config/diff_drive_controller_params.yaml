@@ -2,8 +2,6 @@ config:
   wheel_radius: 0.1
   wheel_width : 0.26
   odom_frame: odom
-  base_frame: base_link
-  left_wheel_link: left_wheel_link
-  right_wheel_link: right_wheel_link
+  base_frame: base_footprint
   left_wheel_joint: left_wheel_joint
   right_wheel_joint: right_wheel_joint
