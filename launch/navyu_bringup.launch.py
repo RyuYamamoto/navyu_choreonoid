@@ -16,20 +16,12 @@ def generate_launch_description():
     map_path = PathJoinSubstitution([FindPackageShare("navyu_navigation"), "map", "map.yaml"])
     rviz_config = PathJoinSubstitution([FindPackageShare("navyu_navigation"), "rviz", "navyu.rviz"])
 
-    costmap_map_config_path = PathJoinSubstitution(
-        [FindPackageShare("navyu_costmap_2d"), "config", "navyu_costmap_2d_params.yaml"]
+    navyu_config_path = PathJoinSubstitution(
+        [FindPackageShare("navyu_choreonoid"), "config", "navyu_params.yaml"]
     )
 
-    navyu_global_planner_config = PathJoinSubstitution(
-        [FindPackageShare("navyu_path_planner"), "config", "navyu_global_planner_params.yaml"]
-    )
-
-    navyu_path_tracker_config = PathJoinSubstitution(
-        [FindPackageShare("navyu_path_tracker"), "config", "navyu_path_tracker_params.yaml"]
-    )
-
-    navyu_safety_limiter_config = PathJoinSubstitution(
-        [FindPackageShare("navyu_safety_limiter"), "config", "navyu_safety_limiter_params.yaml"]
+    emcl2_config_path = PathJoinSubstitution(
+        [FindPackageShare("navyu_choreonoid"), "config", "emcl2_params.yaml"]
     )
 
     lifecycle_node_list = ["map_server"]
@@ -40,6 +32,7 @@ def generate_launch_description():
         [
             DeclareLaunchArgument("use_sim_time", default_value="true"),
             DeclareLaunchArgument("use_rviz", default_value="true"),
+            DeclareLaunchArgument("localization", default_value="true"),
             Node(
                 package="nav2_map_server",
                 executable="map_server",
@@ -49,28 +42,28 @@ def generate_launch_description():
             Node(
                 package="navyu_costmap_2d",
                 executable="navyu_costmap_2d_node",
-                name="global_costmap_node",
-                parameters=[costmap_map_config_path, {"use_sim_time": use_sim_time}],
+                name="navyu_global_costmap_node",
+                parameters=[navyu_config_path, {"use_sim_time": use_sim_time}],
             ),
             Node(
                 package="navyu_path_planner",
                 executable="navyu_global_planner_node",
                 name="navyu_global_planner_node",
-                parameters=[navyu_global_planner_config, {"use_sim_time": use_sim_time}],
+                parameters=[navyu_config_path, {"use_sim_time": use_sim_time}],
             ),
             Node(
                 package="navyu_path_tracker",
                 executable="navyu_path_tracker_node",
                 name="navyu_path_tracker_node",
                 remappings=[("/cmd_vel", "/cmd_vel_in")],
-                parameters=[navyu_path_tracker_config, {"use_sim_time": use_sim_time}],
+                parameters=[navyu_config_path, {"use_sim_time": use_sim_time}],
             ),
             Node(
                 package="navyu_safety_limiter",
                 executable="navyu_safety_limiter_node",
-                name="safety_limiter_node",
+                name="navyu_safety_limiter_node",
                 remappings=[("/cmd_vel_out", "/cmd_vel")],
-                parameters=[navyu_safety_limiter_config, {"use_sim_time": use_sim_time}],
+                parameters=[navyu_config_path, {"use_sim_time": use_sim_time}],
             ),
             Node(
                 package="nav2_lifecycle_manager",
@@ -87,6 +80,9 @@ def generate_launch_description():
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([navyu_launch_path, "/emcl2.launch.py"]),
                 condition=IfCondition(LaunchConfiguration("localization")),
+                launch_arguments={
+                  "emcl2_config_path": emcl2_config_path
+                }.items()
             ),
             Node(
                 package="rviz2",

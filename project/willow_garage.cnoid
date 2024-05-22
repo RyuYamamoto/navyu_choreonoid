@@ -20,18 +20,18 @@ items:
           name: "sample_robot"
           plugin: Body
           class: BodyItem
+          is_selected: true
           is_checked: true
           data:
             file: "../model/sample_robot.body"
             format: CHOREONOID-BODY
-            rootPosition: [ 10.6085093, 3.31215295, 0.14971573 ]
+            rootPosition: [ 10.6086107, 3.30880199, 0.178757878 ]
             rootAttitude: [
-              0.000889954485, -0.999999604, -2.57837496e-05,
-              0.999999578, 0.000889948568, 0.00022859094,
-              -0.000228567903, -2.59871742e-05, 0.999999974 ]
-            jointDisplacements: [ 1.99839, 1.87926 ]
-            initialJointDisplacements: [ 0, 0 ]
-            jointPositions: [ 0.0348784, 0.0327993 ]
+              2.22044605e-16, -1, 0,
+              1, 2.22044605e-16, 0,
+              0, 0, 1 ]
+            jointDisplacements: [ 0, 0 ]
+            jointPositions: [ 0, 0 ]
             initialRootPosition: [ 10.6086107, 3.30880199, 0.178757878 ]
             initialRootAttitude: [
               2.22044605e-16, -1, 0,
@@ -54,11 +54,10 @@ items:
                 body_ros_version: 0
                 joint_state_update_rate: 100
             -
-              id: 5
+              id: 4
               name: "DiffDriveController"
               plugin: Body
               class: SimpleControllerItem
-              is_selected: true
               data:
                 isNoDelayMode: false
                 controllerOptions: ""
@@ -67,7 +66,7 @@ items:
                 reloading: false
                 export_symbols: false
         -
-          id: 6
+          id: 5
           name: "AISTSimulator"
           plugin: Body
           class: AISTSimulatorItem
@@ -84,7 +83,6 @@ items:
             record_collision_data: false
             controller_options: ""
             block_scene_view_edit_mode: false
-            time_sync_items: [ 4 ]
             dynamicsMode: "Forward dynamics"
             integrationMode: semi-implicit_euler
             gravity: [ 0, 0, -9.80665 ]
@@ -101,7 +99,7 @@ items:
             oldAccelSensorMode: false
           children:
             -
-              id: 7
+              id: 6
               name: "GLVisionSimulator"
               plugin: Body
               class: GLVisionSimulatorItem
@@ -119,14 +117,14 @@ items:
                 enable_additional_lights: true
                 antialiasing: false
         -
-          id: 8
+          id: 7
           name: "WorldROS2"
           plugin: ROS2
           class: WorldROS2Item
           data:
             max_clock_publishing_rate: 100
         -
-          id: 9
+          id: 8
           name: "willowgarage_visual"
           plugin: Body
           class: BodyItem
@@ -163,12 +161,11 @@ views:
     class: ItemTreeView
     mounted: true
     state:
-      expanded: [ 1, 2, 3, 6, 9 ]
+      expanded: [ 1, 2, 3, 5, 8 ]
   -
     id: 2
     plugin: Base
     class: LocationView
-    mounted: true
     state:
       show_rpy: true
       unique_rpy: false
@@ -195,9 +192,9 @@ views:
         -
           camera: [ System, Perspective ]
           isCurrent: true
-          eye: [ 6.48815, -0.830312, 6.04226 ]
-          direction: [ 0.472821, 0.530885, -0.703279 ]
-          up: [ 0.467743, 0.525183, 0.710914 ]
+          eye: [ 6.68057, -2.11585, 6.69287 ]
+          direction: [ 0.404545, 0.678551, -0.613116 ]
+          up: [ 0.313969, 0.526626, 0.789993 ]
         -
           camera: [ System, Orthographic ]
           orthoHeight: 12.1306
@@ -233,63 +230,12 @@ views:
       yz_grid_color: [ 0.9, 0.9, 0.9 ]
   -
     id: 5
-    name: "Camera Scene"
-    plugin: Base
-    class: SceneView
-    state:
-      editMode: false
-      viewpointOperationMode: thirdPerson
-      visible_polygon_elements: [ face ]
-      highlighting: false
-      collisionLines: false
-      cameras:
-        -
-          camera: [ System, Perspective ]
-          isCurrent: true
-          eye: [ 18.6394, 7.2295, 1.37028 ]
-          direction: [ -0.999733, -0.0136448, 0.0186579 ]
-          up: [ 0.0186562, 0.000254612, 0.999826 ]
-        -
-          camera: [ System, Orthographic ]
-          orthoHeight: 20
-      lighting_mode: normal
-      culling_mode: enabled
-      shading_mode: smooth
-      world_light: true
-      world_light_intensity: 0.5
-      ambient_light: true
-      ambient_light_intensity: 0.3
-      head_light: true
-      head_light_intensity: 0.75
-      world_light_shadow: true
-      shadow_lights:
-        - { index: 0, enabled: false }
-        - { index: 1, enabled: false }
-      background_color: [ 0.1, 0.1, 0.3 ]
-      line_width: 1
-      point_size: 1
-      field_of_view: 40
-      clip_distances: [ 0.01, 100 ]
-      floorGrid: true
-      floorGridSpan: 10
-      floorGridInterval: 0.5
-      xzGrid: false
-      xzGridSpan: 10
-      xzGridInterval: 0.5
-      yzGrid: false
-      yzGridSpan: 10
-      yzGridInterval: 0.5
-      xy_grid_color: [ 0.9, 0.9, 0.9 ]
-      xz_grid_color: [ 0.9, 0.9, 0.9 ]
-      yz_grid_color: [ 0.9, 0.9, 0.9 ]
-  -
-    id: 6
     plugin: Body
     class: BodyLinkView
     state:
       showRotationMatrix: false
   -
-    id: 7
+    id: 6
     plugin: Body
     class: JointDisplacementView
     state:
@@ -302,7 +248,7 @@ views:
       limit_ranges: false
       show_selected_joints: false
   -
-    id: 8
+    id: 7
     plugin: Body
     class: LinkDeviceListView
     mounted: true
@@ -310,7 +256,7 @@ views:
       element_type: link
       listing_mode: grouped_tree
   -
-    id: 9
+    id: 8
     plugin: Body
     class: LinkPositionView
     state:
@@ -322,11 +268,11 @@ views:
       show_rotation_matrix: false
       target_link_type: ik_link
   -
-    id: 10
+    id: 9
     plugin: Body
     class: LinkPropertyView
   -
-    id: 11
+    id: 10
     plugin: Python
     class: PythonConsoleView
     mounted: true
@@ -334,7 +280,7 @@ toolbars:
   "TimeBar":
     current_time: 0
     min_time: 0
-    max_time: 198.02
+    max_time: 1754.09
     frame_rate: 100
     playback_frame_rate: 50
     idle_loop_driven_mode: false
@@ -374,7 +320,7 @@ Body:
         show_cm_projection: false
         show_zmp: false
       -
-        body_item: 9
+        body_item: 8
         show_cm: false
         show_cm_projection: false
         show_zmp: false
@@ -390,7 +336,7 @@ viewAreas:
     contents:
       type: splitter
       orientation: horizontal
-      sizes: [ 429, 1264 ]
+      sizes: [ 0, 1693 ]
       children:
         -
           type: splitter
@@ -402,20 +348,19 @@ viewAreas:
               views: [ 1 ]
             -
               type: pane
-              views: [ 0, 8 ]
+              views: [ 0, 7 ]
               current: 0
         -
           type: splitter
           orientation: vertical
-          sizes: [ 950, 360 ]
+          sizes: [ 1310, 0 ]
           children:
             -
               type: pane
-              views: [ 4, 2 ]
-              current: 4
+              views: [ 4 ]
             -
               type: pane
-              views: [ 3, 11 ]
+              views: [ 3, 10 ]
               current: 3
 layoutOfToolBars:
   rows:
